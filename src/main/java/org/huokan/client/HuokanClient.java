@@ -17,6 +17,7 @@ public class HuokanClient extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Huokan Boosting Community Client");
         var loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("views/Main.fxml"));
         var root = loader.<Parent>load(
                 this.getClass().getResourceAsStream("views/Main.fxml")
         );
