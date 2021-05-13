@@ -33,6 +33,9 @@ public class CenteredImageController implements Initializable {
         if (imageView.getImage() == null) {
             return;
         }
+        if (container.getWidth() == 0 || container.getHeight() == 0) {
+            return;
+        }
         imageView.setFitWidth(container.getWidth());
         imageView.setFitHeight(container.getHeight());
 

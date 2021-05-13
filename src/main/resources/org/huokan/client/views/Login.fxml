@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.huokan.client.controllers.LoginController"
+      stylesheets="/org/huokan/client/css/login.css"
+      alignment="CENTER">
+    <HBox alignment="CENTER" >
+        <Button styleClass="login-button">Log in with Discord</Button>
+    </HBox>
+</VBox>

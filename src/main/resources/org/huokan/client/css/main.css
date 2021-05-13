@@ -1,3 +1,25 @@
-.root {
+.menu-bar {
+    -fx-background-color: #111;
+    -fx-fill-height: true;
+    -fx-padding: 2 2;
+}
 
+.menu-bar__button {
+    -fx-text-fill: #FFF;
+    -fx-font-size: 14;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+
+    -fx-border-color: transparent;
+    -fx-border-width: 1 0 1 0;
+    -fx-padding: 2 10;
+}
+
+.menu-bar__button:hover {
+    -fx-border-color: #FFEF00;
+}
+
+.menu-bar__button:pressed {
+    -fx-background-color: #444;
 }

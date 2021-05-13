@@ -11,7 +11,5 @@
             fx:controller="org.huokan.client.controllers.CenteredImageController"
             minWidth="0"
             minHeight="0">
-    <children>
-        <ImageView fx:id="imageView" />
-    </children>
+    <ImageView fx:id="imageView" />
 </VBox>
