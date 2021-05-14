@@ -11,10 +11,12 @@
            stylesheets="/org/huokan/client/css/main.css">
     <fx:include fx:id="background" source="partials/CenteredImage.fxml"/>
     <GridPane>
-        <HBox fx:id="menuBar" styleClass="menu-bar" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.hgrow="ALWAYS">
+        <HBox fx:id="menuBar" styleClass="menu-bar" GridPane.columnIndex="0" GridPane.rowIndex="0"
+              GridPane.hgrow="ALWAYS">
             <Button styleClass="menu-bar__button">Home</Button>
             <Button styleClass="menu-bar__button">Log out</Button>
         </HBox>
-        <fx:include source="Login.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+        <fx:include fx:id="content" source="partials/ContentSwitcher.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                    GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
     </GridPane>
 </StackPane>
