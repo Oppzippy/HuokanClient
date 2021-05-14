@@ -2,28 +2,46 @@ package org.huokan.client;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import org.huokan.client.views.ViewFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FXMLCache {
-    private FXMLLoader loader = new FXMLLoader();
-    private Map<String, Node> cache = new HashMap<>();
+    private Map<ViewFile, ViewAndController> cache = new HashMap<>();
 
-    public Node getView(InputStream inputStream, String name) throws IOException {
-        if (cache.containsKey(name)) {
-            return cache.get(name);
+    public Node getView(ViewFile view) throws IOException {
+        if (cache.containsKey(view)) {
+            return cache.get(view).view;
         }
-        var node = getViewNoCache(inputStream);
-        cache.put(name, node);
-        return node;
+        var viewAndController = getViewNoCache(view);
+        cache.put(view, viewAndController);
+        return viewAndController.view;
+    }
+
+    public Object getController(ViewFile view) {
+        if (cache.containsKey(view)) {
+            return cache.get(view).controller;
+        }
+        return null;
     }
 
 
-    public Node getViewNoCache(InputStream inputStream) throws IOException {
-        var node = loader.<Node>load(inputStream);
-        return (Node) node;
+    private ViewAndController getViewNoCache(ViewFile view) throws IOException {
+        var loader = new FXMLLoader(view.getURL());
+        var node = loader.<Node>load();
+        var controller = loader.getController();
+        return new ViewAndController(node, controller);
+    }
+
+    private class ViewAndController {
+        private Node view;
+        private Object controller;
+
+        private ViewAndController(Node view, Object controller) {
+            this.view = view;
+            this.controller = controller;
+        }
     }
 }

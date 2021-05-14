@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.*?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="org.huokan.client.controllers.MainController"
@@ -13,10 +10,11 @@
     <GridPane>
         <HBox fx:id="menuBar" styleClass="menu-bar" GridPane.columnIndex="0" GridPane.rowIndex="0"
               GridPane.hgrow="ALWAYS">
-            <Button styleClass="menu-bar__button">Home</Button>
+            <Button onAction="#goToHome" styleClass="menu-bar__button">Home</Button>
             <Button styleClass="menu-bar__button">Log out</Button>
         </HBox>
-        <fx:include fx:id="content" source="partials/ContentSwitcher.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1"
+        <fx:include fx:id="content" source="partials/ContentSwitcher.fxml"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1"
                     GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
     </GridPane>
 </StackPane>
