@@ -10,7 +10,9 @@ public class ContentSwitcherController {
 
     public void setContent(Node node) {
         clearContent();
-        content.getChildren().add(node);
+        if (node != null) {
+            content.getChildren().add(node);
+        }
     }
 
     public void clearContent() {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.huokan.client.controllers.boostrequest.MythicPlusController">
+    <ComboBox fx:id="factionSelection">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Alliance"/>
+                <String fx:value="Horde"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <ComboBox fx:id="levelSelection">
+        <items>
+            <FXCollections fx:factory="observableArrayList" />
+        </items>
+    </ComboBox>
+</VBox>

@@ -1,0 +1,6 @@
+package org.huokan.client.models.boostrequest;
+
+public enum Dungeon {
+    DE_OTHER_SIDE, HALLS_OF_ATONEMENT, MISTS_OF_TIRNA_SCITHE, THE_NECROTIC_WAKE,
+    PLAGUEFALL, SANGUINE_DEPTHS, SPIRES_OF_ASCENSION, THEATER_OF_PAIN;
+}
