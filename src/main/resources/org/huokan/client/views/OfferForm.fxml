@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="org.huokan.client.controllers.OfferFormController"
+          fx:id="form"
+          stylesheets="/org/huokan/client/css/form.css"
+          styleClass="form__container">
+    <CheckBox fx:id="advertiserPaidCheckBox" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
+        Paid
+    </CheckBox>
+
+    <Label labelFor="$priceField" GridPane.columnIndex="0" GridPane.rowIndex="1">Price</Label>
+    <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label labelFor="$levelSelection" GridPane.columnIndex="0" GridPane.rowIndex="2">Key Level</Label>
+    <ComboBox fx:id="levelSelection" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <CheckBox fx:id="timedCheckBox" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">Timed
+    </CheckBox>
+
+    <!-- Specific Key -->
+    <CheckBox fx:id="specificKeyCheckBox" onAction="#updateSpecificKeyVisibility"
+              GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">Specific Key
+    </CheckBox>
+
+    <Label labelFor="$specificKeysSelection" styleClass="specific-key-section" GridPane.columnIndex="0" GridPane.rowIndex="5">Specific Keys</Label>
+    <ListView fx:id="specificKeysSelection" styleClass="specific-key-section" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <!-- End Specific Key -->
+
+    <!-- Loot Funnel -->
+    <CheckBox fx:id="lootFunnelCheckBox" onAction="#updateLootFunnelVisibility"
+              GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2">Loot Funnel
+    </CheckBox>
+
+    <Label labelFor="$armorTypeSelection" styleClass="loot-funnel-section"  GridPane.columnIndex="0" GridPane.rowIndex="7">Armor Type</Label>
+    <ComboBox fx:id="armorTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+    <Label labelFor="$weaponTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="0" GridPane.rowIndex="8">Weapon Type</Label>
+    <ListView fx:id="weaponTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+    <Label labelFor="$primaryStatSelection" styleClass="loot-funnel-section" GridPane.columnIndex="0" GridPane.rowIndex="9">Main Stat</Label>
+    <ComboBox fx:id="primaryStatSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+
+    <Label labelFor="$trinketTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="0" GridPane.rowIndex="10">Trinket Type</Label>
+    <ComboBox fx:id="trinketTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+    <!-- End loot Funnel -->
+
+    <Label labelFor="$notesField" GridPane.columnIndex="0" GridPane.rowIndex="11">Notes</Label>
+    <TextField fx:id="notesField" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+</GridPane>

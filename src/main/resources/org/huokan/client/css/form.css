@@ -1,0 +1,11 @@
+.form__container {
+    -fx-background-color: rgba(16, 16, 16, 0.75);
+}
+
+.form__container .check-box {
+    -fx-text-fill: #FFF;
+}
+
+.form__container .label {
+    -fx-text-fill: #FFF;
+}

@@ -10,7 +10,7 @@ public enum ViewFile {
     CENTERED_IMAGE("/org/huokan/client/views/partials/CenteredImage.fxml"),
     CONTENT_SWITCHER("/org/huokan/client/views/partials/ContentSwitcher.fxml"),
     BOOST_REQUEST("/org/huokan/client/views/BoostRequest.fxml"),
-    RUN_SUBMISSION("/org/huokan/client/views/RunSubmission.fxml"),
+    RUN_SUBMISSION("/org/huokan/client/views/OfferForm.fxml"),
     MYTHIC_PLUS("/org/huokan/client/views/partials/boostrequest/MythicPlus.fxml");
 
     private String path;
