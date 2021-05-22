@@ -60,7 +60,6 @@ public class OfferFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpGrid();
-        System.out.println(localizer);
 
         specificKeyNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("specific-key-section"));
         lootFunnelNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("loot-funnel-section"));
