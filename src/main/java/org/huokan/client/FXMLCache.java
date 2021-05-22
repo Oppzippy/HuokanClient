@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class FXMLCache {
     private Map<ViewFile, ViewAndController> cache = new HashMap<>();
+    private javafx.util.Callback<Class<?>, Object> controllerFactory;
 
     public Node getView(ViewFile view) throws IOException {
         if (cache.containsKey(view)) {
@@ -20,6 +21,10 @@ public class FXMLCache {
         return viewAndController.view;
     }
 
+    public void setControllerFactory(javafx.util.Callback<Class<?>, Object> controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
+
     public Object getController(ViewFile view) {
         if (cache.containsKey(view)) {
             return cache.get(view).controller;
@@ -27,9 +32,9 @@ public class FXMLCache {
         return null;
     }
 
-
     private ViewAndController getViewNoCache(ViewFile view) throws IOException {
         var loader = new FXMLLoader(view.getURL());
+        loader.setControllerFactory(controllerFactory);
         var node = loader.<Node>load();
         var controller = loader.getController();
         return new ViewAndController(node, controller);

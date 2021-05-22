@@ -4,12 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import org.huokan.client.models.boostrequest.Faction;
+import org.huokan.client.models.wow.Faction;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class MythicPlusController implements Initializable {
     @FXML

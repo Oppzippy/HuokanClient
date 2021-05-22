@@ -8,16 +8,20 @@ import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import org.huokan.client.models.boostrequest.ArmorType;
-import org.huokan.client.models.boostrequest.Dungeon;
-import org.huokan.client.models.boostrequest.PrimaryStat;
-import org.huokan.client.models.boostrequest.Role;
+import org.huokan.client.models.localization.LocalizedString;
+import org.huokan.client.models.localization.Localizer;
+import org.huokan.client.models.wow.ArmorType;
+import org.huokan.client.models.wow.Dungeon;
+import org.huokan.client.models.wow.PrimaryStat;
+import org.huokan.client.models.wow.Role;
 
+import javax.inject.Inject;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class OfferFormController implements Initializable {
@@ -38,7 +42,7 @@ public class OfferFormController implements Initializable {
     @FXML
     private CheckBox lootFunnelCheckBox;
     @FXML
-    private ComboBox<ArmorType> armorTypeSelection;
+    private ComboBox<LocalizedString> armorTypeSelection;
     @FXML
     private ListView<Object> weaponTypeSelection;
     @FXML
@@ -50,10 +54,13 @@ public class OfferFormController implements Initializable {
 
     private List<Node> specificKeyNodes;
     private List<Node> lootFunnelNodes;
+    @Inject
+    private Localizer localizer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUpGrid();
+        System.out.println(localizer);
 
         specificKeyNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("specific-key-section"));
         lootFunnelNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("loot-funnel-section"));
@@ -115,8 +122,10 @@ public class OfferFormController implements Initializable {
     }
 
     private void loadArmorTypes() {
-        var armorTypes = FXCollections.observableArrayList(ArmorType.values());
-        armorTypeSelection.setItems(armorTypes);
+        var armorTypeKeys = Arrays.stream(ArmorType.values())
+                .map(t -> t.name()).toList();
+        var localizedArmorTypes = localizer.localize(armorTypeKeys);
+        armorTypeSelection.setItems(FXCollections.observableList(localizedArmorTypes));
     }
 
     private void loadWeaponTypes() {

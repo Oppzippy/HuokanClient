@@ -1,4 +1,4 @@
-package org.huokan.client.models.boostrequest;
+package org.huokan.client.models.wow;
 
 public enum ArmorType {
     CLOTH, LEATHER, MAIL, PLATE;

@@ -1,5 +1,9 @@
 package org.huokan.client.models.boostrequest;
 
+import org.huokan.client.models.wow.ArmorType;
+import org.huokan.client.models.wow.Dungeon;
+import org.huokan.client.models.wow.Faction;
+
 import java.math.BigDecimal;
 
 public class MythicPlusBoostRequest implements BoostRequest {

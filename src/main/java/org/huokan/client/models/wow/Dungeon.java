@@ -1,4 +1,4 @@
-package org.huokan.client.models.boostrequest;
+package org.huokan.client.models.wow;
 
 public enum Dungeon {
     DE_OTHER_SIDE, HALLS_OF_ATONEMENT, MISTS_OF_TIRNA_SCITHE, THE_NECROTIC_WAKE,

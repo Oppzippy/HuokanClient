@@ -8,12 +8,14 @@ import javafx.scene.layout.Pane;
 import org.huokan.client.FXMLCache;
 import org.huokan.client.views.ViewFile;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private FXMLCache fxmlCache = new FXMLCache();
+    @Inject
+    private FXMLCache fxmlCache;
     @FXML
     private CenteredImageController backgroundController;
     @FXML
