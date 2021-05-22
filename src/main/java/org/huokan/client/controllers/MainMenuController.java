@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import org.huokan.client.views.ViewFile;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class MainMenuController {
     private Consumer<ViewFile> changeView;
@@ -20,6 +19,6 @@ public class MainMenuController {
 
     @FXML
     private void goToRunSubmission() {
-        changeView.accept(ViewFile.RUN_SUBMISSION);
+        changeView.accept(ViewFile.OFFER_FORM);
     }
 }

@@ -5,35 +5,42 @@ import javafx.scene.Node;
 import org.huokan.client.views.ViewFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class FXMLCache {
-    private Map<ViewFile, ViewAndController> cache = new HashMap<>();
+    private ConcurrentMap<ViewFile, ViewAndController> cache = new ConcurrentHashMap<>();
     private javafx.util.Callback<Class<?>, Object> controllerFactory;
-
-    public Node getView(ViewFile view) throws IOException {
-        if (cache.containsKey(view)) {
-            return cache.get(view).view;
-        }
-        var viewAndController = getViewNoCache(view);
-        cache.put(view, viewAndController);
-        return viewAndController.view;
-    }
 
     public void setControllerFactory(javafx.util.Callback<Class<?>, Object> controllerFactory) {
         this.controllerFactory = controllerFactory;
     }
 
-    public Object getController(ViewFile view) {
-        if (cache.containsKey(view)) {
-            return cache.get(view).controller;
+    private ViewAndController getViewAndController(ViewFile viewFile) throws IOException {
+        if (cache.containsKey(viewFile)) {
+            System.out.println("It's cached!");
+            return cache.get(viewFile);
+        }
+        System.out.println("Not cached, loading...");
+        var viewAndController = getViewNoCache(viewFile);
+        cache.put(viewFile, viewAndController);
+        return viewAndController;
+    }
+
+    public Node getView(ViewFile viewFile) throws IOException {
+        var viewAndController = getViewAndController(viewFile);
+        return viewAndController.view;
+    }
+
+    public Object getController(ViewFile viewFile) {
+        if (cache.containsKey(viewFile)) {
+            return cache.get(viewFile).controller;
         }
         return null;
     }
 
-    private ViewAndController getViewNoCache(ViewFile view) throws IOException {
-        var loader = new FXMLLoader(view.getURL());
+    private ViewAndController getViewNoCache(ViewFile viewFile) throws IOException {
+        var loader = new FXMLLoader(viewFile.getURL());
         loader.setControllerFactory(controllerFactory);
         var node = loader.<Node>load();
         var controller = loader.getController();

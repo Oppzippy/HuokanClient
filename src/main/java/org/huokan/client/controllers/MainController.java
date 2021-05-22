@@ -1,15 +1,13 @@
 package org.huokan.client.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import org.huokan.client.FXMLCache;
+import org.huokan.client.FXMLCacheService;
 import org.huokan.client.views.ViewFile;
 
 import javax.inject.Inject;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,20 +23,28 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         backgroundController.setImage(new Image("/org/huokan/client/images/background.jpg"));
         setView(ViewFile.MAIN_MENU);
+
+        preloadView(ViewFile.OFFER_FORM);
     }
 
-    private void setView(ViewFile view) {
-        try {
-            var node = fxmlCache.getView(view);
-            contentController.setContent(node);
+    private void preloadView(ViewFile viewFile) {
+        var service = new FXMLCacheService(fxmlCache, viewFile);
+        service.start();
+    }
 
-            if (view == ViewFile.MAIN_MENU) {
-                MainMenuController controller = (MainMenuController) fxmlCache.getController(view);
+    private void setView(ViewFile viewFile) {
+        var service = new FXMLCacheService(fxmlCache, viewFile);
+        service.start();
+        service.setOnSucceeded(e -> {
+            var view = service.getValue();
+            contentController.setContent(view);
+
+            if (viewFile == ViewFile.MAIN_MENU) {
+                MainMenuController controller = (MainMenuController) fxmlCache.getController(viewFile);
                 controller.setViewChanger(this::setView);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
+        service.setOnFailed(e -> service.getException().printStackTrace());
     }
 
     @FXML
