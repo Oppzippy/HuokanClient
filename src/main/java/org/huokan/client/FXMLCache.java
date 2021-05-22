@@ -1,7 +1,7 @@
 package org.huokan.client;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import org.huokan.client.views.ViewFile;
 
 import java.io.IOException;
@@ -18,16 +18,14 @@ public class FXMLCache {
 
     private ViewAndController getViewAndController(ViewFile viewFile) throws IOException {
         if (cache.containsKey(viewFile)) {
-            System.out.println("It's cached!");
             return cache.get(viewFile);
         }
-        System.out.println("Not cached, loading...");
         var viewAndController = getViewNoCache(viewFile);
         cache.put(viewFile, viewAndController);
         return viewAndController;
     }
 
-    public Node getView(ViewFile viewFile) throws IOException {
+    public Parent getView(ViewFile viewFile) throws IOException {
         var viewAndController = getViewAndController(viewFile);
         return viewAndController.view;
     }
@@ -42,16 +40,16 @@ public class FXMLCache {
     private ViewAndController getViewNoCache(ViewFile viewFile) throws IOException {
         var loader = new FXMLLoader(viewFile.getURL());
         loader.setControllerFactory(controllerFactory);
-        var node = loader.<Node>load();
+        var node = loader.<Parent>load();
         var controller = loader.getController();
         return new ViewAndController(node, controller);
     }
 
     private class ViewAndController {
-        private Node view;
+        private Parent view;
         private Object controller;
 
-        private ViewAndController(Node view, Object controller) {
+        private ViewAndController(Parent view, Object controller) {
             this.view = view;
             this.controller = controller;
         }
