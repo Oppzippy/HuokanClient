@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import org.huokan.client.models.localization.StringConverterCellFactoryProducer;
+import org.huokan.client.models.localization.StringConverterFactory;
 import org.huokan.client.models.wow.ArmorType;
 import org.huokan.client.models.wow.Dungeon;
 import org.huokan.client.models.wow.PrimaryStat;
@@ -14,7 +16,6 @@ import org.huokan.client.models.wow.Role;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -52,18 +53,29 @@ public class OfferFormController implements Initializable {
     private List<Node> lootFunnelNodes;
     @Inject @Named("localization")
     private ResourceBundle localization;
+    @Inject
+    private StringConverterFactory stringConverterFactory;
+    @Inject
+    private StringConverterCellFactoryProducer cellFactoryProducer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         specificKeyNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("specific-key-section"));
         lootFunnelNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("loot-funnel-section"));
+        bindManagedToVisible(specificKeyNodes);
+        bindManagedToVisible(lootFunnelNodes);
+
         weaponTypeSelection.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        armorTypeSelection.setConverter(stringConverterFactory.create());
+        primaryStatSelection.setConverter(stringConverterFactory.create());
+        trinketTypeSelection.setConverter(stringConverterFactory.create());
+        weaponTypeSelection.setCellFactory(cellFactoryProducer.create());
 
         loadLevelSelection();
         update();
 
-        bindManagedToVisible(specificKeyNodes);
-        bindManagedToVisible(lootFunnelNodes);
+
     }
 
     private void update() {
