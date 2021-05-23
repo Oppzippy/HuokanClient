@@ -4,13 +4,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.huokan.client.views.ViewFile;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class FXMLCache {
     private ConcurrentMap<ViewFile, ViewAndController> cache = new ConcurrentHashMap<>();
     private javafx.util.Callback<Class<?>, Object> controllerFactory;
+    @Inject
+    @Named("localization")
+    private ResourceBundle localization;
 
     public void setControllerFactory(javafx.util.Callback<Class<?>, Object> controllerFactory) {
         this.controllerFactory = controllerFactory;
@@ -39,6 +45,7 @@ public class FXMLCache {
 
     private ViewAndController getViewNoCache(ViewFile viewFile) throws IOException {
         var loader = new FXMLLoader(viewFile.getURL());
+        loader.setResources(localization);
         loader.setControllerFactory(controllerFactory);
         var node = loader.<Parent>load();
         var controller = loader.getController();

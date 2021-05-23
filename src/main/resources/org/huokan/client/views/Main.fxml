@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="org.huokan.client.controllers.MainController"
-           stylesheets="/org/huokan/client/css/main.css">
-    <fx:include fx:id="background" source="partials/CenteredImage.fxml"/>
+
+<StackPane stylesheets="/org/huokan/client/css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.huokan.client.controllers.MainController">
+    <fx:include fx:id="background" source="partials/CenteredImage.fxml" />
     <GridPane>
-        <HBox fx:id="menuBar" styleClass="menu-bar" GridPane.columnIndex="0" GridPane.rowIndex="0"
-              GridPane.hgrow="ALWAYS">
-            <Button onAction="#goToHome" styleClass="menu-bar__button">Home</Button>
-            <Button styleClass="menu-bar__button">Log out</Button>
+        <HBox fx:id="menuBar" styleClass="menu-bar" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0">
+            <Button onAction="#goToHome" styleClass="menu-bar__button" text="%home" />
         </HBox>
-        <fx:include fx:id="content" source="partials/ContentSwitcher.fxml"
-                    GridPane.columnIndex="0" GridPane.rowIndex="1"
-                    GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+        <fx:include fx:id="content" source="partials/ContentSwitcher.fxml" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+      <columnConstraints>
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 </StackPane>
