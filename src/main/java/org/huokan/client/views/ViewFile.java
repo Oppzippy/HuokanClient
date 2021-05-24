@@ -11,7 +11,8 @@ public enum ViewFile {
     CONTENT_SWITCHER("/org/huokan/client/views/partials/ContentSwitcher.fxml"),
     BOOST_REQUEST("/org/huokan/client/views/BoostRequest.fxml"),
     OFFER_FORM("/org/huokan/client/views/OfferForm.fxml"),
-    MYTHIC_PLUS("/org/huokan/client/views/partials/boostrequest/MythicPlus.fxml");
+    MYTHIC_PLUS("/org/huokan/client/views/partials/boostrequest/MythicPlus.fxml"),
+    MYTHIC_PLUS_OFFER_FORM("/org/huokan/client/views/partials/offerform/MythicPlusOfferForm.fxml");
 
     private String path;
 
