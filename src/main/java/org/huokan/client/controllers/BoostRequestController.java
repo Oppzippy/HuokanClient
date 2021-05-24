@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import org.huokan.client.FXMLCache;
-import org.huokan.client.models.boostrequest.BoostRequestType;
+import org.huokan.client.models.boostrequest.BoostType;
 import org.huokan.client.views.ViewFile;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class BoostRequestController implements Initializable {
     @FXML
-    private ComboBox<BoostRequestType> boostType;
+    private ComboBox<BoostType> boostType;
 
     @FXML
     private ContentSwitcherController boostTypeSwitcherController;
@@ -25,9 +25,9 @@ public class BoostRequestController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        var types = FXCollections.observableArrayList(BoostRequestType.values());
+        var types = FXCollections.observableArrayList(BoostType.values());
         boostType.setItems(types);
-        boostType.getSelectionModel().select(BoostRequestType.MYTHIC_PLUS);
+        boostType.getSelectionModel().select(BoostType.MYTHIC_PLUS);
         updateBoostType();
     }
 

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import org.huokan.client.models.boostrequest.BoostRequestType?>
+<?import org.huokan.client.models.boostrequest.BoostType?>
 
 <HBox spacing="10.0" styleClass="form__container" stylesheets="/org/huokan/client/css/form.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.huokan.client.controllers.OfferFormController">
     <GridPane HBox.hgrow="ALWAYS">
@@ -23,15 +23,17 @@
         <ComboBox fx:id="offerType" onAction="#updateOfferType" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <BoostRequestType fx:constant="MYTHIC_PLUS" />
-                    <BoostRequestType fx:constant="TORGHAST" />
+                    <BoostType fx:constant="MYTHIC_PLUS" />
+                    <BoostType fx:constant="TORGHAST" />
                 </FXCollections>
             </items>
             <value>
-                <BoostRequestType fx:constant="MYTHIC_PLUS" />
+                <BoostType fx:constant="MYTHIC_PLUS" />
             </value>
         </ComboBox>
         <fx:include fx:id="offerTypeSwitcher" source="partials/ContentSwitcher.fxml" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+        <Label text="%notes" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <TextField fx:id="notesField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
       <columnConstraints>
           <ColumnConstraints prefWidth="100.0" />
           <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
@@ -46,7 +48,7 @@
     <VBox alignment="TOP_CENTER" prefHeight="200.0">
         <children>
             <Button mnemonicParsing="false" text="%copyToClipboard" textAlignment="CENTER" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <TextArea fx:id="commandText" prefWidth="200.0" VBox.vgrow="ALWAYS" />
         </children>
     </VBox>
 </HBox>

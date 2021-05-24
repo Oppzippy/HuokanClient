@@ -1,7 +1,6 @@
 package org.huokan.client.controllers;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -9,10 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import org.huokan.client.models.localization.StringConverterCellFactoryProducer;
 import org.huokan.client.models.localization.StringConverterFactory;
-import org.huokan.client.models.wow.ArmorType;
-import org.huokan.client.models.wow.Dungeon;
-import org.huokan.client.models.wow.PrimaryStat;
-import org.huokan.client.models.wow.Role;
+import org.huokan.client.models.offers.LootFunnelFilter;
+import org.huokan.client.models.offers.MythicPlusOfferBuilder;
+import org.huokan.client.models.offers.OfferBuilder;
+import org.huokan.client.models.wow.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -38,17 +37,16 @@ public class MythicPlusOfferFormController implements Initializable {
     @FXML
     private ComboBox<ArmorType> armorTypeSelection;
     @FXML
-    private ListView<Object> weaponTypeSelection;
+    private ListView<WeaponType> weaponTypeSelection;
     @FXML
     private ComboBox<PrimaryStat> primaryStatSelection;
     @FXML
     private ComboBox<Role> trinketTypeSelection;
-    @FXML
-    private TextField notesField;
 
     private List<Node> specificKeyNodes;
     private List<Node> lootFunnelNodes;
-    @Inject @Named("localization")
+    @Inject
+    @Named("localization")
     private ResourceBundle localization;
     @Inject
     private StringConverterFactory stringConverterFactory;
@@ -71,8 +69,6 @@ public class MythicPlusOfferFormController implements Initializable {
 
         loadLevelSelection();
         update();
-
-
     }
 
     private void update() {
@@ -103,5 +99,25 @@ public class MythicPlusOfferFormController implements Initializable {
         for (var node : nodes) {
             node.managedProperty().bind(node.visibleProperty());
         }
+    }
+
+    public OfferBuilder offerBuilder() {
+        var builder = new MythicPlusOfferBuilder();
+        builder.setLevel(levelSelection.getValue())
+                .setTimed(timedCheckBox.isSelected())
+                .setLootFunnelFilter(lootFunnelFilter());
+        return builder;
+    }
+
+    private LootFunnelFilter lootFunnelFilter() {
+        if (!lootFunnelCheckBox.isSelected()) {
+            return null;
+        }
+        var builder = LootFunnelFilter.builder();
+        builder.setArmorType(armorTypeSelection.getValue())
+                .setPrimaryStat(primaryStatSelection.getValue())
+                .setTrinketType(trinketTypeSelection.getValue())
+                .setWeaponTypes(weaponTypeSelection.getSelectionModel().getSelectedItems());
+        return builder.build();
     }
 }

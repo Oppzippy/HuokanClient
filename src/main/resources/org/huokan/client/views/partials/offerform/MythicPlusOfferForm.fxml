@@ -94,14 +94,11 @@
     </ComboBox>
     <!-- End loot Funnel -->
 
-    <Label text="%notes" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
-    <TextField fx:id="notesField" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
     <columnConstraints>
         <ColumnConstraints prefWidth="100.0"/>
         <ColumnConstraints hgrow="ALWAYS" minWidth="150.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>
