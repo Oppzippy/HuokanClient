@@ -1,15 +1,14 @@
 package org.huokan.client.models.offers;
 
 import org.huokan.client.models.wow.Dungeon;
-import org.huokan.client.models.wow.WeaponType;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class MythicPlusOffer extends Offer {
     private int level;
     private boolean isTimed;
-    private List<Dungeon> specificKeys;
+    private Optional<List<Dungeon>> specificKeys;
     private LootFunnelFilter lootFunnelFilter;
 
     protected MythicPlusOffer(MythicPlusOfferBuilder builder) {
@@ -17,25 +16,11 @@ public class MythicPlusOffer extends Offer {
         level = builder.level;
         isTimed = builder.isTimed;
         specificKeys = builder.specificKeys;
-        lootFunnelFilter = builder.lootFunnelFilter;
-    }
-
-    @Override
-    public String getCommand() {
-        var sb = new StringBuilder("!offer");
-        if (getNumRuns() > 1) {
-            sb.append(getNumRuns());
+        if (builder.lootFunnelFilter.isPresent()) {
+            lootFunnelFilter = builder.lootFunnelFilter.get();
+        } else {
+            lootFunnelFilter = LootFunnelFilter.empty();
         }
-        sb.append(isPaid() ? "paid" : "unpaid").append("\n")
-                .append(getLevel()).append("\n")
-                .append("TODO type").append("\n")
-                .append("discount?").append("\n")
-                .append(getFaction().toString().toLowerCase()).append("\n")
-                .append(isTimed ? "timed" : "untimed").append("\n")
-                .append(lootFunnelFilter.toCommandArgs()).append("\n")
-                .append(getNotes().replace("\n", " ")).append("\n")
-                .append(getSpecificKeys().stream().map(d -> d.getShortName()).collect(Collectors.joining("\n")));
-        return sb.toString();
     }
 
     public int getLevel() {
@@ -50,7 +35,7 @@ public class MythicPlusOffer extends Offer {
         return specificKeys != null;
     }
 
-    public List<Dungeon> getSpecificKeys() {
+    public Optional<List<Dungeon>> getSpecificKeys() {
         return specificKeys;
     }
 
@@ -60,5 +45,10 @@ public class MythicPlusOffer extends Offer {
 
     public boolean isLootFunnel() {
         return lootFunnelFilter.isEmpty();
+    }
+
+    @Override
+    public void accept(OfferVisitor visitor) {
+        visitor.visit(this);
     }
 }

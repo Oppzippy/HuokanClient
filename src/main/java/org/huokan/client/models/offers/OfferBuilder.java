@@ -8,8 +8,8 @@ public abstract class OfferBuilder {
     public int numRuns = 1;
     public Faction faction;
     protected BigDecimal price;
-    protected boolean isPaid;
-    protected String notes;
+    protected boolean isPaid = false;
+    protected String notes = "";
 
     public abstract Offer build();
 

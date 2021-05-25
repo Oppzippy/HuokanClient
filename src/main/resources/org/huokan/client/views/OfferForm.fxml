@@ -14,41 +14,57 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.huokan.client.models.boostrequest.BoostType?>
 
-<HBox spacing="10.0" styleClass="form__container" stylesheets="/org/huokan/client/css/form.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.huokan.client.controllers.OfferFormController">
+<?import org.huokan.client.models.wow.Faction?>
+<HBox spacing="10.0" styleClass="form__container" stylesheets="/org/huokan/client/css/form.css"
+      xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.huokan.client.controllers.OfferFormController">
     <GridPane HBox.hgrow="ALWAYS">
-        <Label text="%price" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <CheckBox fx:id="advertiserPaidCheckBox" text="%paid" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-        <Label text="%type" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <ComboBox fx:id="offerType" onAction="#updateOfferType" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Label text="%price" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <CheckBox fx:id="advertiserPaidCheckBox" text="%paid" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                  GridPane.rowIndex="1"/>
+        <Label text="%type" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="factionSelection">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <BoostType fx:constant="MYTHIC_PLUS" />
-                    <BoostType fx:constant="TORGHAST" />
+                    <Faction fx:constant="ALLIANCE"/>
+                    <Faction fx:constant="HORDE"/>
                 </FXCollections>
             </items>
             <value>
-                <BoostType fx:constant="MYTHIC_PLUS" />
+                <Faction fx:constant="HORDE"/>
             </value>
         </ComboBox>
-        <fx:include fx:id="offerTypeSwitcher" source="partials/ContentSwitcher.fxml" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+        <ComboBox fx:id="offerTypeSelection" onAction="#updateOfferType" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <BoostType fx:constant="MYTHIC_PLUS"/>
+                    <BoostType fx:constant="TORGHAST"/>
+                </FXCollections>
+            </items>
+            <value>
+                <BoostType fx:constant="MYTHIC_PLUS"/>
+            </value>
+        </ComboBox>
+        <fx:include fx:id="offerTypeSwitcher" source="partials/ContentSwitcher.fxml" GridPane.columnSpan="2"
+                    GridPane.rowIndex="3"/>
         <Label text="%notes" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
         <TextField fx:id="notesField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-      <columnConstraints>
-          <ColumnConstraints prefWidth="100.0" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints prefWidth="100.0"/>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="150.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+            <RowConstraints/>
+            <RowConstraints/>
+            <RowConstraints/>
+        </rowConstraints>
     </GridPane>
     <VBox alignment="TOP_CENTER" prefHeight="200.0">
         <children>
-            <Button mnemonicParsing="false" text="%copyToClipboard" textAlignment="CENTER" />
-            <TextArea fx:id="commandText" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Button mnemonicParsing="false" text="%copyToClipboard" textAlignment="CENTER"/>
+            <TextArea fx:id="commandText" prefWidth="200.0" VBox.vgrow="ALWAYS" editable="false"/>
         </children>
     </VBox>
 </HBox>

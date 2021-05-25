@@ -15,6 +15,9 @@ public abstract class Offer {
         if (builder.price == null) {
             throw new NullPointerException("Offer price may not be null");
         }
+        if (builder.faction == null) {
+            throw new NullPointerException("Faction may not be null");
+        }
         numRuns = builder.numRuns;
         price = builder.price;
         isPaid = builder.isPaid;
@@ -42,6 +45,5 @@ public abstract class Offer {
         return price;
     }
 
-    public abstract String getCommand();
-
+    public abstract void accept(OfferVisitor visitor);
 }

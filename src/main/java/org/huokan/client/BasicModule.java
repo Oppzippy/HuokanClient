@@ -1,6 +1,7 @@
 package org.huokan.client;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
 import com.google.inject.Provides;
 import org.huokan.client.models.localization.LocalizationStringConverterFactory;
 import org.huokan.client.models.localization.StringConverterFactory;
@@ -32,16 +33,16 @@ public class BasicModule extends AbstractModule {
     }
 
     @Provides
-    private Set<MythicPlusCode> createMythicPlusCodes() {
+    private Set<MythicPlusCode> createMythicPlusCodes(Injector injector) {
         return Stream.of(
-                new BaseCode(),
-                new LootFunnelAndSpecificKeyTimedCode(),
-                new LootFunnelAndSpecificKeyCode(),
-                new LootFunnelCode(),
-                new LootFunnelTimedCode(),
-                new SpecificKeyCode(),
-                new SpecificKeyTimedCode(),
-                new TimedCode()
+                injector.getInstance(BaseCode.class),
+                injector.getInstance(LootFunnelAndSpecificKeyTimedCode.class),
+                injector.getInstance(LootFunnelAndSpecificKeyCode.class),
+                injector.getInstance(LootFunnelCode.class),
+                injector.getInstance(LootFunnelTimedCode.class),
+                injector.getInstance(SpecificKeyCode.class),
+                injector.getInstance(SpecificKeyTimedCode.class),
+                injector.getInstance(TimedCode.class)
         ).collect(Collectors.toSet());
     }
 }

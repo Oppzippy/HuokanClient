@@ -7,19 +7,24 @@ import org.huokan.client.models.wow.Role;
 import org.huokan.client.models.wow.WeaponType;
 
 import java.util.List;
+import java.util.Optional;
 
 @AutoValue
 public abstract class LootFunnelFilter {
-    public abstract ArmorType armorType();
+    public abstract Optional<ArmorType> armorType();
 
-    public abstract List<WeaponType> weaponTypes();
+    public abstract Optional<List<WeaponType>> weaponTypes();
 
-    public abstract PrimaryStat primaryStat();
+    public abstract Optional<PrimaryStat> primaryStat();
 
-    public abstract Role trinketType();
+    public abstract Optional<Role> trinketType();
 
     public static Builder builder() {
         return new AutoValue_LootFunnelFilter.Builder();
+    }
+
+    public static LootFunnelFilter empty() {
+        return builder().build();
     }
 
     public String toCommandArgs() {
@@ -35,7 +40,7 @@ public abstract class LootFunnelFilter {
     }
 
     private void appendArmorType(StringBuilder sb) {
-        if (armorType() != null) {
+        if (armorType().isPresent()) {
             sb.append(armorType().toString().toLowerCase()).append("\n");
         } else {
             sb.append("any");
@@ -43,7 +48,7 @@ public abstract class LootFunnelFilter {
     }
 
     private void appendWeaponTypes(StringBuilder sb) {
-        if (weaponTypes() != null) {
+        if (weaponTypes().isPresent()) {
             var weaponTypeNames = weaponTypes().stream().map(wt -> wt.toString()).toList();
             sb.append(String.join("/", weaponTypeNames));
         } else {
@@ -52,7 +57,7 @@ public abstract class LootFunnelFilter {
     }
 
     private void appendPrimaryStat(StringBuilder sb) {
-        if (primaryStat() != null) {
+        if (primaryStat().isPresent()) {
             sb.append(primaryStat().toString().toLowerCase());
         } else {
             sb.append("any");
@@ -60,7 +65,7 @@ public abstract class LootFunnelFilter {
     }
 
     private void appendTrinketType(StringBuilder sb) {
-        if (trinketType() != null) {
+        if (trinketType().isPresent()) {
             sb.append(trinketType().toString().toLowerCase()).append("\n");
         } else {
             sb.append("any\n");
@@ -68,7 +73,7 @@ public abstract class LootFunnelFilter {
     }
 
     public boolean isEmpty() {
-        return armorType() == null && weaponTypes() == null && primaryStat() == null && trinketType() == null;
+        return armorType().isEmpty() && weaponTypes().isEmpty() && primaryStat().isEmpty() && trinketType().isEmpty();
     }
 
     @AutoValue.Builder

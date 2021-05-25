@@ -9,7 +9,8 @@ public abstract class Code {
         this.code = code;
     }
 
-    public String getCode() {
+    @Override
+    public String toString() {
         return code;
     }
 
