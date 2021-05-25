@@ -10,6 +10,7 @@ import org.huokan.client.FXMLCache;
 import org.huokan.client.models.boostrequest.BoostType;
 import org.huokan.client.views.ViewFile;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +22,12 @@ public class BoostRequestController implements Initializable {
     @FXML
     private ContentSwitcherController boostTypeSwitcherController;
 
-    private FXMLCache fxmlCache = new FXMLCache();
+    private FXMLCache fxmlCache;
+
+    @Inject
+    public BoostRequestController(FXMLCache fxmlCache) {
+        this.fxmlCache = fxmlCache;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

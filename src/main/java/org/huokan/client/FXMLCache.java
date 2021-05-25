@@ -14,9 +14,12 @@ import java.util.concurrent.ConcurrentMap;
 public class FXMLCache {
     private ConcurrentMap<ViewFile, ViewAndController> cache = new ConcurrentHashMap<>();
     private javafx.util.Callback<Class<?>, Object> controllerFactory;
-    @Inject
-    @Named("localization")
     private ResourceBundle localization;
+
+    @Inject
+    public FXMLCache(@Named("localization") ResourceBundle localization) {
+        this.localization=  localization;
+    }
 
     public void setControllerFactory(javafx.util.Callback<Class<?>, Object> controllerFactory) {
         this.controllerFactory = controllerFactory;
