@@ -22,7 +22,6 @@ public class MythicPlusOffer extends Offer {
 
     @Override
     public String getCommand() {
-        boolean hasLootFunnelFilter = lootFunnelFilter != null;
         var sb = new StringBuilder("!offer");
         if (getNumRuns() > 1) {
             sb.append(getNumRuns());
@@ -34,8 +33,9 @@ public class MythicPlusOffer extends Offer {
                 .append(getFaction().toString().toLowerCase()).append("\n")
                 .append(isTimed ? "timed" : "untimed").append("\n")
                 .append(lootFunnelFilter.toCommandArgs()).append("\n")
-                .append(getNotes())
+                .append(getNotes().replace("\n", " ")).append("\n")
                 .append(getSpecificKeys().stream().map(d -> d.getShortName()).collect(Collectors.joining("\n")));
+        return sb.toString();
     }
 
     public int getLevel() {
@@ -56,5 +56,9 @@ public class MythicPlusOffer extends Offer {
 
     public LootFunnelFilter getLootFunnelFilter() {
         return lootFunnelFilter;
+    }
+
+    public boolean isLootFunnel() {
+        return lootFunnelFilter.isEmpty();
     }
 }

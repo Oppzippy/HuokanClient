@@ -11,8 +11,11 @@ import java.util.List;
 @AutoValue
 public abstract class LootFunnelFilter {
     public abstract ArmorType armorType();
+
     public abstract List<WeaponType> weaponTypes();
+
     public abstract PrimaryStat primaryStat();
+
     public abstract Role trinketType();
 
     public static Builder builder() {
@@ -42,7 +45,7 @@ public abstract class LootFunnelFilter {
     private void appendWeaponTypes(StringBuilder sb) {
         if (weaponTypes() != null) {
             var weaponTypeNames = weaponTypes().stream().map(wt -> wt.toString()).toList();
-            sb.append(String.join("/", weaponTypeNames)).append('');
+            sb.append(String.join("/", weaponTypeNames));
         } else {
             sb.append("any");
         }
@@ -64,12 +67,20 @@ public abstract class LootFunnelFilter {
         }
     }
 
+    public boolean isEmpty() {
+        return armorType() == null && weaponTypes() == null && primaryStat() == null && trinketType() == null;
+    }
+
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder setArmorType(ArmorType armorType);
+
         public abstract Builder setWeaponTypes(List<WeaponType> weaponTypes);
+
         public abstract Builder setPrimaryStat(PrimaryStat primaryStat);
+
         public abstract Builder setTrinketType(Role trinketType);
+
         public abstract LootFunnelFilter build();
     }
 }

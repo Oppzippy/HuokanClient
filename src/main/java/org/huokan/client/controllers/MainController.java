@@ -12,12 +12,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    @Inject
     private FXMLCache fxmlCache;
     @FXML
     private CenteredImageController backgroundController;
     @FXML
     private ContentSwitcherController contentController;
+
+    @Inject
+    public MainController(FXMLCache fxmlCache) {
+        this.fxmlCache = fxmlCache;
+    }
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
