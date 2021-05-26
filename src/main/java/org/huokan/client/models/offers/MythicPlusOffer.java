@@ -13,7 +13,7 @@ public class MythicPlusOffer extends Offer {
 
     protected MythicPlusOffer(MythicPlusOfferBuilder builder) {
         super(builder);
-        level = builder.level;
+        level = builder.level.orElseThrow();
         isTimed = builder.isTimed;
         specificKeys = builder.specificKeys;
         if (builder.lootFunnelFilter.isPresent()) {

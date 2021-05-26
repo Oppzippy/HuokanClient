@@ -17,8 +17,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MythicPlusOfferFormController implements Initializable {
@@ -114,10 +116,11 @@ public class MythicPlusOfferFormController implements Initializable {
             return null;
         }
         var builder = LootFunnelFilter.builder();
+        var weaponTypes = new HashSet<>(weaponTypeSelection.getSelectionModel().getSelectedItems());
         builder.setArmorType(armorTypeSelection.getValue())
                 .setPrimaryStat(primaryStatSelection.getValue())
                 .setTrinketType(trinketTypeSelection.getValue())
-                .setWeaponTypes(weaponTypeSelection.getSelectionModel().getSelectedItems());
+                .setWeaponTypes(weaponTypes);
         return builder.build();
     }
 }

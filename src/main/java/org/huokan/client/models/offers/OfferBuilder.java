@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public abstract class OfferBuilder {
     public int numRuns = 1;
     public Faction faction;
-    protected BigDecimal priceAdjustment;
+    protected BigDecimal priceAdjustment = BigDecimal.ZERO;
     protected boolean isPaid = false;
     protected String notes = "";
 

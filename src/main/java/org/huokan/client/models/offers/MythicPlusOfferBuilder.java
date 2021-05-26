@@ -4,10 +4,11 @@ import org.huokan.client.models.wow.Dungeon;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public class MythicPlusOfferBuilder extends OfferBuilder {
-    protected int level;
-    protected boolean isTimed;
+    protected OptionalInt level = OptionalInt.empty();
+    protected boolean isTimed = false;
     protected Optional<List<Dungeon>> specificKeys = Optional.empty();
     protected Optional<LootFunnelFilter> lootFunnelFilter = Optional.empty();
 
@@ -17,7 +18,7 @@ public class MythicPlusOfferBuilder extends OfferBuilder {
     }
 
     public MythicPlusOfferBuilder setLevel(int level) {
-        this.level = level;
+        this.level = OptionalInt.of(level);
         return this;
     }
 

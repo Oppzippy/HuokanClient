@@ -12,9 +12,6 @@ public abstract class Offer {
     private Faction faction;
 
     public Offer(OfferBuilder builder) {
-        if (builder.priceAdjustment == null) {
-            throw new NullPointerException("Offer price may not be null");
-        }
         if (builder.faction == null) {
             throw new NullPointerException("Faction may not be null");
         }

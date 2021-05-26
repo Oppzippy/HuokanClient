@@ -9,12 +9,13 @@ import org.huokan.client.models.wow.WeaponType;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @AutoValue
 public abstract class LootFunnelFilter {
     public abstract Optional<ArmorType> armorType();
 
-    public abstract Optional<List<WeaponType>> weaponTypes();
+    public abstract Optional<Set<WeaponType>> weaponTypes();
 
     public abstract Optional<PrimaryStat> primaryStat();
 
@@ -80,7 +81,7 @@ public abstract class LootFunnelFilter {
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder setArmorType(@Nullable ArmorType armorType);
-        public abstract Builder setWeaponTypes(@Nullable List<WeaponType> weaponTypes);
+        public abstract Builder setWeaponTypes(@Nullable Set<WeaponType> weaponTypes);
         public abstract Builder setPrimaryStat(@Nullable PrimaryStat primaryStat);
         public abstract Builder setTrinketType(@Nullable Role trinketType);
 
