@@ -6,6 +6,7 @@ import org.huokan.client.models.wow.PrimaryStat;
 import org.huokan.client.models.wow.Role;
 import org.huokan.client.models.wow.WeaponType;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public abstract class LootFunnelFilter {
 
     private void appendArmorType(StringBuilder sb) {
         if (armorType().isPresent()) {
-            sb.append(armorType().toString().toLowerCase()).append("\n");
+            sb.append(armorType().get().toString().toLowerCase()).append("\n");
         } else {
             sb.append("any");
         }
@@ -49,7 +50,7 @@ public abstract class LootFunnelFilter {
 
     private void appendWeaponTypes(StringBuilder sb) {
         if (weaponTypes().isPresent()) {
-            var weaponTypeNames = weaponTypes().stream().map(wt -> wt.toString()).toList();
+            var weaponTypeNames = weaponTypes().get().stream().map(wt -> wt.toString()).toList();
             sb.append(String.join("/", weaponTypeNames));
         } else {
             sb.append("any");
@@ -58,7 +59,7 @@ public abstract class LootFunnelFilter {
 
     private void appendPrimaryStat(StringBuilder sb) {
         if (primaryStat().isPresent()) {
-            sb.append(primaryStat().toString().toLowerCase());
+            sb.append(primaryStat().get().toString().toLowerCase());
         } else {
             sb.append("any");
         }
@@ -66,7 +67,7 @@ public abstract class LootFunnelFilter {
 
     private void appendTrinketType(StringBuilder sb) {
         if (trinketType().isPresent()) {
-            sb.append(trinketType().toString().toLowerCase()).append("\n");
+            sb.append(trinketType().get().toString().toLowerCase()).append("\n");
         } else {
             sb.append("any\n");
         }
@@ -78,13 +79,10 @@ public abstract class LootFunnelFilter {
 
     @AutoValue.Builder
     public abstract static class Builder {
-        public abstract Builder setArmorType(ArmorType armorType);
-
-        public abstract Builder setWeaponTypes(List<WeaponType> weaponTypes);
-
-        public abstract Builder setPrimaryStat(PrimaryStat primaryStat);
-
-        public abstract Builder setTrinketType(Role trinketType);
+        public abstract Builder setArmorType(@Nullable ArmorType armorType);
+        public abstract Builder setWeaponTypes(@Nullable List<WeaponType> weaponTypes);
+        public abstract Builder setPrimaryStat(@Nullable PrimaryStat primaryStat);
+        public abstract Builder setTrinketType(@Nullable Role trinketType);
 
         public abstract LootFunnelFilter build();
     }

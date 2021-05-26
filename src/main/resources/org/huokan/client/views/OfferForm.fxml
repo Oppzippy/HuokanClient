@@ -15,16 +15,17 @@
 <?import org.huokan.client.models.boostrequest.BoostType?>
 
 <?import org.huokan.client.models.wow.Faction?>
+<?import org.huokan.client.components.NumberField?>
 <HBox spacing="10.0" styleClass="form__container" stylesheets="/org/huokan/client/css/form.css"
       xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.huokan.client.controllers.OfferFormController">
     <GridPane HBox.hgrow="ALWAYS">
         <Label text="%price" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <NumberField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <CheckBox fx:id="advertiserPaidCheckBox" text="%paid" GridPane.columnIndex="0" GridPane.columnSpan="2"
                   GridPane.rowIndex="1"/>
-        <Label text="%type" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <ComboBox fx:id="factionSelection">
+        <Label text="%faction" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ComboBox fx:id="factionSelection" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Faction fx:constant="ALLIANCE"/>
@@ -35,7 +36,8 @@
                 <Faction fx:constant="HORDE"/>
             </value>
         </ComboBox>
-        <ComboBox fx:id="offerTypeSelection" onAction="#updateOfferType" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Label text="%type" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="offerTypeSelection" onAction="#updateOfferType" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <BoostType fx:constant="MYTHIC_PLUS"/>
@@ -47,9 +49,9 @@
             </value>
         </ComboBox>
         <fx:include fx:id="offerTypeSwitcher" source="partials/ContentSwitcher.fxml" GridPane.columnSpan="2"
-                    GridPane.rowIndex="3"/>
-        <Label text="%notes" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <TextField fx:id="notesField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    GridPane.rowIndex="4"/>
+        <Label text="%notes" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <TextField fx:id="notesField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
         <columnConstraints>
             <ColumnConstraints prefWidth="100.0"/>
             <ColumnConstraints hgrow="ALWAYS" minWidth="150.0"/>

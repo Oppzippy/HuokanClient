@@ -1,5 +1,8 @@
 package org.huokan.client.controllers;
 
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -60,15 +63,15 @@ public class OfferFormController implements Initializable {
             // TODO check if this shows the IOException's stack trace
             throw new RuntimeException(e);
         }
-        advertiserPaidCheckBox.addEventHandler(ActionEvent.ACTION, this::updateCommand);
-        priceField.addEventHandler(ActionEvent.ACTION, this::updateCommand);
-        offerTypeSelection.addEventHandler(ActionEvent.ACTION, this::updateCommand);
-        notesField.addEventHandler(ActionEvent.ACTION, this::updateCommand);
+        advertiserPaidCheckBox.selectedProperty().addListener(this::updateCommand);
+        priceField.textProperty().addListener(this::updateCommand);
+        offerTypeSelection.valueProperty().addListener(this::updateCommand);
+        notesField.textProperty().addListener(this::updateCommand);
     }
 
     @FXML
     private void updateOfferType() throws IOException {
-        switch(offerTypeSelection.getValue()) {
+        switch (offerTypeSelection.getValue()) {
             case MYTHIC_PLUS:
                 offerTypeSwitcherController.setContent(fxmlCache.getView(ViewFile.MYTHIC_PLUS_OFFER_FORM));
                 mythicPlusController = (MythicPlusOfferFormController) fxmlCache.getController(ViewFile.MYTHIC_PLUS_OFFER_FORM);
@@ -78,7 +81,7 @@ public class OfferFormController implements Initializable {
         }
     }
 
-    public void updateCommand(Event e) {
+    public void updateCommand(Observable observable, Object oldValue, Object newValue) {
         var command = getCommand();
         if (command.isEmpty()) {
             commandText.clear();
@@ -99,7 +102,7 @@ public class OfferFormController implements Initializable {
 
     public Offer offer() {
         OfferBuilder builder;
-        switch(offerTypeSelection.getValue()) {
+        switch (offerTypeSelection.getValue()) {
             case MYTHIC_PLUS:
                 builder = mythicPlusController.offerBuilder();
                 break;
@@ -107,9 +110,9 @@ public class OfferFormController implements Initializable {
                 return null;
         }
         builder.setNotes(notesField.getText())
-            .setPaid(advertiserPaidCheckBox.isSelected())
-            .setPrice(new BigDecimal(priceField.getText()))
-            .setFaction(factionSelection.getValue());
+                .setPaid(advertiserPaidCheckBox.isSelected())
+                .setPrice(new BigDecimal(priceField.getText()))
+                .setFaction(factionSelection.getValue());
 
         return builder.build();
     }
