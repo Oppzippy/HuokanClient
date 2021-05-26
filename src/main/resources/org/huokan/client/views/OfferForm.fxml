@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.huokan.client.components.IntegerField?>
 <?import org.huokan.client.models.boostrequest.BoostType?>
-
 <?import org.huokan.client.models.wow.Faction?>
-<?import org.huokan.client.components.NumberField?>
 <HBox spacing="10.0" styleClass="form__container" stylesheets="/org/huokan/client/css/form.css"
       xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.huokan.client.controllers.OfferFormController">
     <GridPane HBox.hgrow="ALWAYS">
         <Label text="%price" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <NumberField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <IntegerField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <CheckBox fx:id="advertiserPaidCheckBox" text="%paid" GridPane.columnIndex="0" GridPane.columnSpan="2"
                   GridPane.rowIndex="1"/>
         <Label text="%faction" GridPane.columnIndex="0" GridPane.rowIndex="2" />

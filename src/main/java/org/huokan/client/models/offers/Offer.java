@@ -6,20 +6,20 @@ import java.math.BigDecimal;
 
 public abstract class Offer {
     private int numRuns;
-    private BigDecimal price;
+    private BigDecimal priceAdjustment;
     private boolean isPaid;
     private String notes;
     private Faction faction;
 
     public Offer(OfferBuilder builder) {
-        if (builder.price == null) {
+        if (builder.priceAdjustment == null) {
             throw new NullPointerException("Offer price may not be null");
         }
         if (builder.faction == null) {
             throw new NullPointerException("Faction may not be null");
         }
         numRuns = builder.numRuns;
-        price = builder.price;
+        priceAdjustment = builder.priceAdjustment;
         isPaid = builder.isPaid;
         notes = builder.notes;
         faction = builder.faction;
@@ -41,8 +41,8 @@ public abstract class Offer {
         return faction;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getPriceAdjustment() {
+        return priceAdjustment;
     }
 
     public abstract void accept(OfferVisitor visitor);

@@ -19,12 +19,6 @@ public class CommandGenerator implements OfferVisitor {
 
     @Override
     public void visit(MythicPlusOffer offer) {
-        var sb = new StringBuilder("!offer");
-        if (offer.getNumRuns() > 1) {
-            sb.append(offer.getNumRuns());
-        }
-        sb.append("\n");
-
         var code = botCodeFactory.fromOffer(offer);
         var specificKeyArgs = "";
         if (offer.getSpecificKeys().isPresent()) {
@@ -32,16 +26,22 @@ public class CommandGenerator implements OfferVisitor {
             specificKeyArgs = keys.stream().map(d -> d.getShortName()).collect(Collectors.joining("\n"));
         }
 
+        var sb = new StringBuilder("!offer");
+        if (offer.getNumRuns() > 1) {
+            sb.append(offer.getNumRuns());
+        }
+        sb.append("\n").append("@YOURNAME TODO").append("\n");
+
         sb.append(offer.isPaid() ? "paid" : "unpaid").append("\n")
                 .append(offer.getLevel()).append("\n")
                 .append(code.toString()).append("\n")
-                .append(0).append("\n") // TODO discount
+                .append(offer.getPriceAdjustment()).append("\n")
                 .append(offer.getFaction().toString().toLowerCase()).append("\n")
                 .append(offer.isTimed() ? "timed" : "untimed").append("\n")
                 .append(offer.getLootFunnelFilter().toCommandArgs()).append("\n")
                 .append(offer.getNotes().replace("\n", " ")).append("\n")
                 .append(specificKeyArgs).append("\n");
-        command = Optional.ofNullable(sb.toString());
+        command = Optional.of(sb.toString().trim());
     }
 
     public String getCommand() {

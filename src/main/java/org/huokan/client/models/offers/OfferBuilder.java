@@ -7,14 +7,14 @@ import java.math.BigDecimal;
 public abstract class OfferBuilder {
     public int numRuns = 1;
     public Faction faction;
-    protected BigDecimal price;
+    protected BigDecimal priceAdjustment;
     protected boolean isPaid = false;
     protected String notes = "";
 
     public abstract Offer build();
 
-    public OfferBuilder setPrice(BigDecimal price) {
-        this.price = price;
+    public OfferBuilder setPriceAdjustment(BigDecimal priceAdjustment) {
+        this.priceAdjustment = priceAdjustment;
         return this;
     }
 

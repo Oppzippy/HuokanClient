@@ -1,10 +1,6 @@
 package org.huokan.client.controllers;
 
 import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -12,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.huokan.client.FXMLCache;
+import org.huokan.client.components.IntegerField;
 import org.huokan.client.models.boostrequest.BoostType;
 import org.huokan.client.models.localization.StringConverterFactory;
 import org.huokan.client.models.offers.Offer;
@@ -32,7 +29,7 @@ public class OfferFormController implements Initializable {
     @FXML
     private CheckBox advertiserPaidCheckBox;
     @FXML
-    private TextField priceField;
+    private IntegerField priceField;
     @FXML
     private ComboBox<Faction> factionSelection;
     @FXML
@@ -111,7 +108,7 @@ public class OfferFormController implements Initializable {
         }
         builder.setNotes(notesField.getText())
                 .setPaid(advertiserPaidCheckBox.isSelected())
-                .setPrice(new BigDecimal(priceField.getText()))
+                .setPriceAdjustment(new BigDecimal(priceField.getValue().orElse(0)))
                 .setFaction(factionSelection.getValue());
 
         return builder.build();

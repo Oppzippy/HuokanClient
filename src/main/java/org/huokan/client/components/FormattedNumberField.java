@@ -4,13 +4,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.NumberStringConverter;
 
-public class NumberField extends TextField {
+public class FormattedNumberField extends TextField {
 
-    public NumberField() {
+    public FormattedNumberField() {
         this("");
     }
 
-    public NumberField(String text) {
+    public FormattedNumberField(String text) {
         super(text);
         this.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
     }

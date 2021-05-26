@@ -42,7 +42,7 @@ public abstract class LootFunnelFilter {
 
     private void appendArmorType(StringBuilder sb) {
         if (armorType().isPresent()) {
-            sb.append(armorType().get().toString().toLowerCase()).append("\n");
+            sb.append(armorType().get().toString().toLowerCase());
         } else {
             sb.append("any");
         }
@@ -50,7 +50,7 @@ public abstract class LootFunnelFilter {
 
     private void appendWeaponTypes(StringBuilder sb) {
         if (weaponTypes().isPresent()) {
-            var weaponTypeNames = weaponTypes().get().stream().map(wt -> wt.toString()).toList();
+            var weaponTypeNames = weaponTypes().get().stream().map(wt -> wt.getBotName()).toList();
             sb.append(String.join("/", weaponTypeNames));
         } else {
             sb.append("any");
@@ -67,9 +67,9 @@ public abstract class LootFunnelFilter {
 
     private void appendTrinketType(StringBuilder sb) {
         if (trinketType().isPresent()) {
-            sb.append(trinketType().get().toString().toLowerCase()).append("\n");
+            sb.append(trinketType().get().toString().toLowerCase());
         } else {
-            sb.append("any\n");
+            sb.append("any");
         }
     }
 
