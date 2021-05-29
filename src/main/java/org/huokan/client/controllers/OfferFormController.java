@@ -1,12 +1,12 @@
 package org.huokan.client.controllers;
 
+import javafx.animation.Transition;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import org.huokan.client.FXMLCache;
 import org.huokan.client.components.IntegerField;
 import org.huokan.client.models.boostrequest.BoostType;
@@ -15,9 +15,11 @@ import org.huokan.client.models.offers.Offer;
 import org.huokan.client.models.offers.OfferBuilder;
 import org.huokan.client.models.offers.command.CommandGenerator;
 import org.huokan.client.models.wow.Faction;
+import org.huokan.client.transitions.ButtonClickedTransition;
 import org.huokan.client.views.ViewFile;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Provider;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -29,7 +31,7 @@ public class OfferFormController implements Initializable {
     @FXML
     private CheckBox advertiserPaidCheckBox;
     @FXML
-    private IntegerField priceField;
+    private IntegerField priceAdjustmentField;
     @FXML
     private ComboBox<Faction> factionSelection;
     @FXML
@@ -40,6 +42,8 @@ public class OfferFormController implements Initializable {
     private TextField notesField;
     @FXML
     private TextArea commandText;
+    @FXML
+    private Button copyButton;
 
     @Inject
     private StringConverterFactory stringConverterFactory;
@@ -47,8 +51,12 @@ public class OfferFormController implements Initializable {
     private FXMLCache fxmlCache;
     @Inject
     private Provider<CommandGenerator> commandGeneratorProvider;
+    @Inject
+    @Named("localization")
+    private ResourceBundle localization;
 
     private MythicPlusOfferFormController mythicPlusController;
+    private Transition copyButtonClickedTransition;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,14 +64,22 @@ public class OfferFormController implements Initializable {
         offerTypeSelection.setConverter(stringConverterFactory.create());
         try {
             updateOfferType();
+            updateCommand();
         } catch (IOException e) {
             // TODO check if this shows the IOException's stack trace
             throw new RuntimeException(e);
         }
         advertiserPaidCheckBox.selectedProperty().addListener(this::updateCommand);
-        priceField.textProperty().addListener(this::updateCommand);
+        factionSelection.valueProperty().addListener(this::updateCommand);
+        priceAdjustmentField.valueProperty().addListener(this::updateCommand);
         offerTypeSelection.valueProperty().addListener(this::updateCommand);
         notesField.textProperty().addListener(this::updateCommand);
+
+        copyButtonClickedTransition = new ButtonClickedTransition(
+                copyButton,
+                copyButton.getText(),
+                localization.getString("ok")
+        );
     }
 
     @FXML
@@ -78,7 +94,24 @@ public class OfferFormController implements Initializable {
         }
     }
 
+    @FXML
+    private void copyCommandToClipboard() {
+        var command = getCommand();
+        if (command.isPresent()) {
+            var clipboard = Clipboard.getSystemClipboard();
+            var content = new ClipboardContent();
+            content.putString(command.get());
+            clipboard.setContent(content);
+
+            copyButtonClickedTransition.playFromStart();
+        }
+    }
+
     public void updateCommand(Observable observable, Object oldValue, Object newValue) {
+        updateCommand();
+    }
+
+    public void updateCommand() {
         var command = getCommand();
         if (command.isEmpty()) {
             commandText.clear();
@@ -108,7 +141,7 @@ public class OfferFormController implements Initializable {
         }
         builder.setNotes(notesField.getText())
                 .setPaid(advertiserPaidCheckBox.isSelected())
-                .setPriceAdjustment(new BigDecimal(priceField.getValue().orElse(0)))
+                .setPriceAdjustment(new BigDecimal(priceAdjustmentField.getValue().orElse(0)))
                 .setFaction(factionSelection.getValue());
 
         return builder.build();

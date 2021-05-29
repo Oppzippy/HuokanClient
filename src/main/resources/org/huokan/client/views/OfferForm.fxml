@@ -10,8 +10,8 @@
       xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.huokan.client.controllers.OfferFormController">
     <GridPane HBox.hgrow="ALWAYS">
-        <Label text="%price" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <IntegerField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="%priceAdjustment" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <IntegerField fx:id="priceAdjustmentField" GridPane.columnIndex="1" GridPane.rowIndex="0" text="0"/>
         <CheckBox fx:id="advertiserPaidCheckBox" text="%paid" GridPane.columnIndex="0" GridPane.columnSpan="2"
                   GridPane.rowIndex="1"/>
         <Label text="%faction" GridPane.columnIndex="0" GridPane.rowIndex="2" />
@@ -55,7 +55,7 @@
     </GridPane>
     <VBox alignment="TOP_CENTER" prefHeight="200.0">
         <children>
-            <Button mnemonicParsing="false" text="%copyToClipboard" textAlignment="CENTER"/>
+            <Button fx:id="copyButton" text="%copyToClipboard" textAlignment="CENTER" onAction="#copyCommandToClipboard"/>
             <TextArea fx:id="commandText" prefWidth="200.0" VBox.vgrow="ALWAYS" editable="false"/>
         </children>
     </VBox>
