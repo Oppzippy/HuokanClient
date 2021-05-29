@@ -21,8 +21,8 @@ public class CommandGenerator implements OfferVisitor {
     public void visit(MythicPlusOffer offer) {
         var code = botCodeFactory.fromOffer(offer);
         var specificKeyArgs = "";
-        if (offer.getSpecificKeys().isPresent()) {
-            var keys = offer.getSpecificKeys().get();
+        if (offer.getSpecificDungeons().isPresent()) {
+            var keys = offer.getSpecificDungeons().get();
             specificKeyArgs = keys.stream().map(d -> d.getShortName()).collect(Collectors.joining("\n"));
         }
 

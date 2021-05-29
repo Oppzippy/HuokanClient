@@ -10,7 +10,7 @@ public class MythicPlusOfferMatcher {
     public boolean matches(MythicPlusOffer offer) {
         return offer.isTimed() == isTimed
                 && offer.isLootFunnel() == isLootFunnel
-                && offer.isSpecificKey() == isSpecificKey;
+                && offer.isSpecificDungeon() == isSpecificKey;
     }
 
     public MythicPlusOfferMatcher setTimed(boolean timed) {

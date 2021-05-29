@@ -13,13 +13,13 @@
     <CheckBox fx:id="timedCheckBox" text="%timed" GridPane.columnIndex="0" GridPane.columnSpan="2"
               GridPane.rowIndex="3"/>
 
-    <!-- Specific Key -->
-    <CheckBox fx:id="specificKeyCheckBox" onAction="#updateSpecificKeyVisibility" text="%specificKey"
+    <!-- Specific Dungeon -->
+    <CheckBox fx:id="specificDungeonCheckBox" onAction="#updateSpecificDungeonVisibility" text="%specificKey"
               GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
 
-    <Label styleClass="specific-key-section" text="%specificKeys" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-    <VBox styleClass="specific-key-section" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-    <!-- End Specific Key -->
+    <Label styleClass="specific-dungeon-section" text="%specificKeys" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    <fx:include fx:id="specificDungeonPicker" source="SpecificDungeonPicker.fxml" styleClass="specific-dungeon-section" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <!-- End Specific Dungeon -->
 
     <!-- Loot Funnel -->
     <CheckBox fx:id="lootFunnelCheckBox" onAction="#updateLootFunnelVisibility" text="%lootFunnel"

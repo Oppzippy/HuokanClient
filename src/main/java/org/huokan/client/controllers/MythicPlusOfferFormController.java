@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MythicPlusOfferFormController implements Initializable {
@@ -31,9 +30,9 @@ public class MythicPlusOfferFormController implements Initializable {
     @FXML
     private CheckBox timedCheckBox;
     @FXML
-    private CheckBox specificKeyCheckBox;
+    private CheckBox specificDungeonCheckBox;
     @FXML
-    private ListView<Dungeon> specificKeysSelection;
+    private SpecificDungeonPickerController specificDungeonPickerController;
     @FXML
     private CheckBox lootFunnelCheckBox;
     @FXML
@@ -45,7 +44,7 @@ public class MythicPlusOfferFormController implements Initializable {
     @FXML
     private ComboBox<Role> trinketTypeSelection;
 
-    private List<Node> specificKeyNodes;
+    private List<Node> specificDungeonNodes;
     private List<Node> lootFunnelNodes;
     @Inject
     @Named("localization")
@@ -57,9 +56,9 @@ public class MythicPlusOfferFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        specificKeyNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("specific-key-section"));
+        specificDungeonNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("specific-dungeon-section"));
         lootFunnelNodes = form.getChildren().filtered(node -> node.getStyleClass().contains("loot-funnel-section"));
-        bindManagedToVisible(specificKeyNodes);
+        bindManagedToVisible(specificDungeonNodes);
         bindManagedToVisible(lootFunnelNodes);
 
         weaponTypeSelection.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -74,14 +73,14 @@ public class MythicPlusOfferFormController implements Initializable {
     }
 
     private void update() {
-        updateSpecificKeyVisibility();
+        updateSpecificDungeonVisibility();
         updateLootFunnelVisibility();
     }
 
     @FXML
-    private void updateSpecificKeyVisibility() {
-        var isSpecificKey = specificKeyCheckBox.isSelected();
-        specificKeyNodes.stream().forEach(node -> node.setVisible(isSpecificKey));
+    private void updateSpecificDungeonVisibility() {
+        var isSpecificDungeon = specificDungeonCheckBox.isSelected();
+        specificDungeonNodes.stream().forEach(node -> node.setVisible(isSpecificDungeon));
     }
 
     @FXML
@@ -107,7 +106,8 @@ public class MythicPlusOfferFormController implements Initializable {
         var builder = new MythicPlusOfferBuilder();
         builder.setLevel(levelSelection.getValue())
                 .setTimed(timedCheckBox.isSelected())
-                .setLootFunnelFilter(lootFunnelFilter());
+                .setLootFunnelFilter(lootFunnelFilter())
+                .setSpecificDungeons(specificDungeons());
         return builder;
     }
 
@@ -122,5 +122,12 @@ public class MythicPlusOfferFormController implements Initializable {
                 .setTrinketType(trinketTypeSelection.getValue())
                 .setWeaponTypes(weaponTypes);
         return builder.build();
+    }
+
+    private List<Dungeon> specificDungeons() {
+        if (!specificDungeonCheckBox.isSelected()) {
+            return null;
+        }
+        return specificDungeonPickerController.getSelectedDungeons();
     }
 }

@@ -4,19 +4,18 @@ import org.huokan.client.models.wow.Dungeon;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class MythicPlusOffer extends Offer {
     private int level;
     private boolean isTimed;
-    private Optional<Set<Dungeon>> specificKeys;
+    private Optional<List<Dungeon>> specificDungeons;
     private LootFunnelFilter lootFunnelFilter;
 
     protected MythicPlusOffer(MythicPlusOfferBuilder builder) {
         super(builder);
         level = builder.level.orElseThrow();
         isTimed = builder.isTimed;
-        specificKeys = builder.specificKeys;
+        specificDungeons = builder.specificDungeons;
         if (builder.lootFunnelFilter.isPresent()) {
             lootFunnelFilter = builder.lootFunnelFilter.get();
         } else {
@@ -32,12 +31,12 @@ public class MythicPlusOffer extends Offer {
         return isTimed;
     }
 
-    public boolean isSpecificKey() {
-        return specificKeys.isPresent();
+    public boolean isSpecificDungeon() {
+        return specificDungeons.isPresent();
     }
 
-    public Optional<Set<Dungeon>> getSpecificKeys() {
-        return specificKeys;
+    public Optional<List<Dungeon>> getSpecificDungeons() {
+        return specificDungeons;
     }
 
     public LootFunnelFilter getLootFunnelFilter() {

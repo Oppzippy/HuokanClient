@@ -47,10 +47,10 @@ public class MythicPlusOfferMatcherTests {
 
         var offerBuilder = new MythicPlusOfferBuilder();
         offerBuilder.setLevel(2)
-                .setSpecificKeys(Set.of(Dungeon.MISTS_OF_TIRNA_SCITHE))
+                .setSpecificDungeons(Set.of(Dungeon.MISTS_OF_TIRNA_SCITHE))
                 .setFaction(Faction.ALLIANCE);
 
         Assertions.assertEquals(true, offerMatcher.matches((MythicPlusOffer) offerBuilder.build()));
-        Assertions.assertEquals(false, offerMatcher.matches((MythicPlusOffer) offerBuilder.setSpecificKeys(null).build()));
+        Assertions.assertEquals(false, offerMatcher.matches((MythicPlusOffer) offerBuilder.setSpecificDungeons(null).build()));
     }
 }
