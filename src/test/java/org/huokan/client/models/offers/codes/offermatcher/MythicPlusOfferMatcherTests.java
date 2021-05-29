@@ -9,6 +9,7 @@ import org.huokan.client.models.wow.Faction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Set;
 
 public class MythicPlusOfferMatcherTests {
@@ -47,7 +48,7 @@ public class MythicPlusOfferMatcherTests {
 
         var offerBuilder = new MythicPlusOfferBuilder();
         offerBuilder.setLevel(2)
-                .setSpecificDungeons(Set.of(Dungeon.MISTS_OF_TIRNA_SCITHE))
+                .setSpecificDungeons(Arrays.asList(Dungeon.MISTS_OF_TIRNA_SCITHE))
                 .setFaction(Faction.ALLIANCE);
 
         Assertions.assertEquals(true, offerMatcher.matches((MythicPlusOffer) offerBuilder.build()));
