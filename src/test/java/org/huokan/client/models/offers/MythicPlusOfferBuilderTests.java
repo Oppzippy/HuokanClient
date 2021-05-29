@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Set;
 
 public class MythicPlusOfferBuilderTests {
     @Test
@@ -28,7 +29,7 @@ public class MythicPlusOfferBuilderTests {
 
     @Test
     public void setsSpecificKeys() {
-        var specificKeys = Arrays.asList(Dungeon.DE_OTHER_SIDE);
+        var specificKeys = Set.of(Dungeon.DE_OTHER_SIDE);
         var offer = (MythicPlusOffer) basicOfferBuilder().setSpecificKeys(specificKeys).build();
         Assertions.assertEquals(true, offer.isSpecificKey());
         Assertions.assertEquals(specificKeys, offer.getSpecificKeys().get());
