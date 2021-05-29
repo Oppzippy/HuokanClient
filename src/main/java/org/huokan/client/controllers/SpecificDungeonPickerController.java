@@ -55,6 +55,7 @@ public class SpecificDungeonPickerController implements Initializable {
     private ComboBox<Dungeon> createDungeonPicker() {
         var dungeonPicker = new ComboBox<Dungeon>();
         dungeonPicker.setConverter(stringConverterFactory.create());
+        dungeonPicker.setMaxWidth(Double.MAX_VALUE);
         var dungeons = FXCollections.observableArrayList(Dungeon.values());
         dungeonPicker.setItems(dungeons);
         dungeonPicker.valueProperty().setValue(dungeons.stream().findFirst().orElse(null));

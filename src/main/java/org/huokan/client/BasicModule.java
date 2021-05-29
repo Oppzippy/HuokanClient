@@ -29,7 +29,7 @@ public class BasicModule extends AbstractModule {
     @Singleton
     @Named("localization")
     private ResourceBundle createLocalizer() {
-        return ResourceBundle.getBundle("org.huokan.client.locales.localization");
+        return ResourceBundle.getBundle("org.huokan.client.i18n.localization");
     }
 
     @Provides

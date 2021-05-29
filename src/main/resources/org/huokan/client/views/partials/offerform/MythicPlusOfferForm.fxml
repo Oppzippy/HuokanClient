@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import org.huokan.client.models.wow.*?>
-<GridPane fx:id="form" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="org.huokan.client.controllers.MythicPlusOfferFormController">
-    <Label text="%level" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <ComboBox fx:id="levelSelection" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import org.huokan.client.models.wow.ArmorType?>
+<?import org.huokan.client.models.wow.PrimaryStat?>
+<?import org.huokan.client.models.wow.Role?>
+<?import org.huokan.client.models.wow.WeaponType?>
 
-    <CheckBox fx:id="timedCheckBox" text="%timed" GridPane.columnIndex="0" GridPane.columnSpan="2"
-              GridPane.rowIndex="3"/>
+<GridPane fx:id="form" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.huokan.client.controllers.MythicPlusOfferFormController">
+    <Label text="%level" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <ComboBox fx:id="levelSelection" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <CheckBox fx:id="timedCheckBox" text="%timed" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
 
     <!-- Specific Dungeon -->
-    <CheckBox fx:id="specificDungeonCheckBox" onAction="#updateSpecificDungeonVisibility" text="%specificKey"
-              GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
+    <CheckBox fx:id="specificDungeonCheckBox" onAction="#updateSpecificDungeonVisibility" text="%specificKey" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
 
-    <Label styleClass="specific-dungeon-section" text="%specificKeys" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-    <fx:include fx:id="specificDungeonPicker" source="SpecificDungeonPicker.fxml" styleClass="specific-dungeon-section" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Label styleClass="specific-dungeon-section" text="%specificKeys" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+    <fx:include fx:id="specificDungeonPicker" source="SpecificDungeonPicker.fxml" styleClass="specific-dungeon-section" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     <!-- End Specific Dungeon -->
 
     <!-- Loot Funnel -->
-    <CheckBox fx:id="lootFunnelCheckBox" onAction="#updateLootFunnelVisibility" text="%lootFunnel"
-              GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6"/>
+    <CheckBox fx:id="lootFunnelCheckBox" onAction="#updateLootFunnelVisibility" text="%lootFunnel" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
 
-    <Label styleClass="loot-funnel-section" text="%armorType" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-    <ComboBox fx:id="armorTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1"
-              GridPane.rowIndex="7">
+    <Label styleClass="loot-funnel-section" text="%armorType" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+    <ComboBox fx:id="armorTypeSelection" maxWidth="1.7976931348623157E308" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="7">
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <ArmorType fx:constant="PLATE"/>
-                <ArmorType fx:constant="MAIL"/>
-                <ArmorType fx:constant="LEATHER"/>
-                <ArmorType fx:constant="CLOTH"/>
+                <ArmorType fx:constant="PLATE" />
+                <ArmorType fx:constant="MAIL" />
+                <ArmorType fx:constant="LEATHER" />
+                <ArmorType fx:constant="CLOTH" />
             </FXCollections>
         </items>
         <value>
@@ -41,40 +45,38 @@
         </value>
     </ComboBox>
 
-    <Label styleClass="loot-funnel-section" text="%weaponTypes" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-    <ListView fx:id="weaponTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1"
-              GridPane.rowIndex="8">
+    <Label styleClass="loot-funnel-section" text="%weaponTypes" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+    <ListView fx:id="weaponTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="8">
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <WeaponType fx:constant="ONE_HANDED_AXE"/>
-                <WeaponType fx:constant="TWO_HANDED_AXE"/>
-                <WeaponType fx:constant="ONE_HANDED_MACE"/>
-                <WeaponType fx:constant="TWO_HANDED_MACE"/>
-                <WeaponType fx:constant="ONE_HANDED_SWORD"/>
-                <WeaponType fx:constant="TWO_HANDED_SWORD"/>
-                <WeaponType fx:constant="SHIELD"/>
-                <WeaponType fx:constant="DAGGER"/>
-                <WeaponType fx:constant="FIST_WEAPON"/>
-                <WeaponType fx:constant="WARGLAIVE"/>
-                <WeaponType fx:constant="POLEARM"/>
-                <WeaponType fx:constant="STAFF"/>
-                <WeaponType fx:constant="WAND"/>
-                <WeaponType fx:constant="HELD_IN_OFF_HAND"/>
-                <WeaponType fx:constant="BOW"/>
-                <WeaponType fx:constant="CROSSBOW"/>
-                <WeaponType fx:constant="GUN"/>
+                <WeaponType fx:constant="ONE_HANDED_AXE" />
+                <WeaponType fx:constant="TWO_HANDED_AXE" />
+                <WeaponType fx:constant="ONE_HANDED_MACE" />
+                <WeaponType fx:constant="TWO_HANDED_MACE" />
+                <WeaponType fx:constant="ONE_HANDED_SWORD" />
+                <WeaponType fx:constant="TWO_HANDED_SWORD" />
+                <WeaponType fx:constant="SHIELD" />
+                <WeaponType fx:constant="DAGGER" />
+                <WeaponType fx:constant="FIST_WEAPON" />
+                <WeaponType fx:constant="WARGLAIVE" />
+                <WeaponType fx:constant="POLEARM" />
+                <WeaponType fx:constant="STAFF" />
+                <WeaponType fx:constant="WAND" />
+                <WeaponType fx:constant="HELD_IN_OFF_HAND" />
+                <WeaponType fx:constant="BOW" />
+                <WeaponType fx:constant="CROSSBOW" />
+                <WeaponType fx:constant="GUN" />
             </FXCollections>
         </items>
     </ListView>
 
-    <Label styleClass="loot-funnel-section" text="%primaryStat" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
-    <ComboBox fx:id="primaryStatSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1"
-              GridPane.rowIndex="9">
+    <Label styleClass="loot-funnel-section" text="%primaryStat" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+    <ComboBox fx:id="primaryStatSelection" maxWidth="1.7976931348623157E308" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="9">
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <PrimaryStat fx:constant="STRENGTH"/>
-                <PrimaryStat fx:constant="INTELLECT"/>
-                <PrimaryStat fx:constant="AGILITY"/>
+                <PrimaryStat fx:constant="STRENGTH" />
+                <PrimaryStat fx:constant="INTELLECT" />
+                <PrimaryStat fx:constant="AGILITY" />
             </FXCollections>
         </items>
     </ComboBox>
@@ -82,33 +84,32 @@
     <Label styleClass="loot-funnel-section" text="%trinketType" GridPane.columnIndex="0" GridPane.rowIndex="10">
         Trinket Type
     </Label>
-    <ComboBox fx:id="trinketTypeSelection" styleClass="loot-funnel-section" GridPane.columnIndex="1"
-              GridPane.rowIndex="10">
+    <ComboBox fx:id="trinketTypeSelection" maxWidth="1.7976931348623157E308" styleClass="loot-funnel-section" GridPane.columnIndex="1" GridPane.rowIndex="10">
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <Role fx:constant="TANK"/>
-                <Role fx:constant="HEALER"/>
-                <Role fx:constant="DAMAGE"/>
+                <Role fx:constant="TANK" />
+                <Role fx:constant="HEALER" />
+                <Role fx:constant="DAMAGE" />
             </FXCollections>
         </items>
     </ComboBox>
     <!-- End loot Funnel -->
 
     <columnConstraints>
-        <ColumnConstraints prefWidth="100.0"/>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="150.0"/>
+        <ColumnConstraints prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
     </rowConstraints>
 </GridPane>
