@@ -1,8 +1,5 @@
 package org.huokan.client.controllers;
 
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -20,7 +17,6 @@ import org.huokan.client.util.ObservableUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.beans.EventHandler;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -73,7 +69,7 @@ public class MythicPlusOfferFormController implements Initializable {
         trinketTypeSelection.setConverter(stringConverterFactory.create());
         weaponTypeSelection.setCellFactory(cellFactoryProducer.create());
 
-        ObservableUtils.addHandler(this::fireChangeEvent, Arrays.asList(
+        ObservableUtils.addObservableValueHandler(this::fireChangeEvent, Arrays.asList(
                 levelSelection.valueProperty(),
                 timedCheckBox.selectedProperty(),
                 specificDungeonCheckBox.selectedProperty(),
@@ -82,9 +78,10 @@ public class MythicPlusOfferFormController implements Initializable {
                 primaryStatSelection.valueProperty(),
                 trinketTypeSelection.valueProperty()
         ));
-        weaponTypeSelection.getSelectionModel().getSelectedItems().addListener(
-                (ListChangeListener<? super WeaponType>) changedItem -> this.fireChangeEvent()
-        );
+        ObservableUtils.addObservableListHandler(this::fireChangeEvent, Arrays.asList(
+                weaponTypeSelection.getSelectionModel().getSelectedItems(),
+                specificDungeonPickerController.getSelectedDungeons()
+        ));
 
         loadLevelSelection();
         update();
@@ -96,10 +93,6 @@ public class MythicPlusOfferFormController implements Initializable {
 
     public void removeChangeHandler(Runnable handler) {
         changeHandlers.remove(handler);
-    }
-
-    private void fireChangeEvent(Observable o, Object oldValue, Object newValue) {
-        fireChangeEvent();
     }
 
     private void fireChangeEvent() {

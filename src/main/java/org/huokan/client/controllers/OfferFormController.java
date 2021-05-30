@@ -1,7 +1,6 @@
 package org.huokan.client.controllers;
 
 import javafx.animation.Transition;
-import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -71,7 +70,7 @@ public class OfferFormController implements Initializable {
             // TODO check if this shows the IOException's stack trace
             throw new RuntimeException(e);
         }
-        ObservableUtils.addHandler(this::updateCommand, Arrays.asList(
+        ObservableUtils.addObservableValueHandler(this::updateCommand, Arrays.asList(
                 advertiserPaidCheckBox.selectedProperty(),
                 factionSelection.valueProperty(),
                 priceAdjustmentField.valueProperty(),
@@ -110,10 +109,6 @@ public class OfferFormController implements Initializable {
 
             copyButtonClickedTransition.playFromStart();
         }
-    }
-
-    public void updateCommand(Observable observable, Object oldValue, Object newValue) {
-        updateCommand();
     }
 
     public void updateCommand() {

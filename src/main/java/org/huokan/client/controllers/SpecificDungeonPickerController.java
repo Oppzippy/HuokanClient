@@ -1,6 +1,7 @@
 package org.huokan.client.controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -20,27 +21,27 @@ public class SpecificDungeonPickerController implements Initializable {
     @Inject
     private StringConverterFactory stringConverterFactory;
 
+    private ObservableList<Dungeon> selectedDungeons = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setNumRuns(1);
     }
 
-    public List<Dungeon> getSelectedDungeons() {
-        return specificKeyContainer.getChildren()
-                .stream()
-                .map(dungeonPicker -> ((ComboBox<Dungeon>) dungeonPicker).getValue())
-                .toList();
-    }
-
     public void setNumRuns(int numRuns) {
         int numComboBoxes = getNumRuns();
+        if (numRuns == numComboBoxes) {
+            return;
+        }
+
         if (numRuns < numComboBoxes) {
             specificKeyContainer.getChildren().remove(numRuns - 1, numComboBoxes - 1);
-        } else if (numRuns > numComboBoxes) {
+        } else {
             for (var i = numComboBoxes; i < numRuns; i++) {
                 appendDungeonPicker();
             }
         }
+        updateSelectedDungeons();
     }
 
     public int getNumRuns() {
@@ -56,9 +57,26 @@ public class SpecificDungeonPickerController implements Initializable {
         var dungeonPicker = new ComboBox<Dungeon>();
         dungeonPicker.setConverter(stringConverterFactory.create());
         dungeonPicker.setMaxWidth(Double.MAX_VALUE);
+        dungeonPicker.valueProperty().addListener((o, oldValue, newValue) -> this.updateSelectedDungeons());
+
         var dungeons = FXCollections.observableArrayList(Dungeon.values());
         dungeonPicker.setItems(dungeons);
         dungeonPicker.valueProperty().setValue(dungeons.stream().findFirst().orElse(null));
         return dungeonPicker;
+    }
+
+    private void updateSelectedDungeons() {
+        selectedDungeons.setAll(collectSelectedDungeons());
+    }
+
+    private List<Dungeon> collectSelectedDungeons() {
+        return specificKeyContainer.getChildren()
+                .stream()
+                .map(dungeonPicker -> ((ComboBox<Dungeon>) dungeonPicker).getValue())
+                .toList();
+    }
+
+    public ObservableList<Dungeon> getSelectedDungeons() {
+        return selectedDungeons;
     }
 }
