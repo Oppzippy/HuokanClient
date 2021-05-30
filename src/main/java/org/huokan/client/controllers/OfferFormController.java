@@ -16,6 +16,7 @@ import org.huokan.client.models.offers.OfferBuilder;
 import org.huokan.client.models.offers.command.CommandGenerator;
 import org.huokan.client.models.wow.Faction;
 import org.huokan.client.transitions.ButtonClickedTransition;
+import org.huokan.client.util.ObservableUtils;
 import org.huokan.client.views.ViewFile;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import javax.inject.Provider;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -69,11 +71,14 @@ public class OfferFormController implements Initializable {
             // TODO check if this shows the IOException's stack trace
             throw new RuntimeException(e);
         }
-        advertiserPaidCheckBox.selectedProperty().addListener(this::updateCommand);
-        factionSelection.valueProperty().addListener(this::updateCommand);
-        priceAdjustmentField.valueProperty().addListener(this::updateCommand);
-        offerTypeSelection.valueProperty().addListener(this::updateCommand);
-        notesField.textProperty().addListener(this::updateCommand);
+        ObservableUtils.addHandler(this::updateCommand, Arrays.asList(
+                advertiserPaidCheckBox.selectedProperty(),
+                factionSelection.valueProperty(),
+                priceAdjustmentField.valueProperty(),
+                offerTypeSelection.valueProperty(),
+                notesField.textProperty()
+        ));
+        mythicPlusController.addChangeHandler(this::updateCommand);
 
         copyButtonClickedTransition = new ButtonClickedTransition(
                 copyButton,

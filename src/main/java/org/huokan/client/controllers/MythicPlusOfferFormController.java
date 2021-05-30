@@ -1,6 +1,10 @@
 package org.huokan.client.controllers;
 
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -12,14 +16,13 @@ import org.huokan.client.models.offers.LootFunnelFilter;
 import org.huokan.client.models.offers.MythicPlusOfferBuilder;
 import org.huokan.client.models.offers.OfferBuilder;
 import org.huokan.client.models.wow.*;
+import org.huokan.client.util.ObservableUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.beans.EventHandler;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class MythicPlusOfferFormController implements Initializable {
@@ -44,8 +47,6 @@ public class MythicPlusOfferFormController implements Initializable {
     @FXML
     private ComboBox<Role> trinketTypeSelection;
 
-    private List<Node> specificDungeonNodes;
-    private List<Node> lootFunnelNodes;
     @Inject
     @Named("localization")
     private ResourceBundle localization;
@@ -53,6 +54,10 @@ public class MythicPlusOfferFormController implements Initializable {
     private StringConverterFactory stringConverterFactory;
     @Inject
     private StringConverterCellFactoryProducer cellFactoryProducer;
+
+    private List<Node> specificDungeonNodes;
+    private List<Node> lootFunnelNodes;
+    private Set<Runnable> changeHandlers = new HashSet<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,8 +73,39 @@ public class MythicPlusOfferFormController implements Initializable {
         trinketTypeSelection.setConverter(stringConverterFactory.create());
         weaponTypeSelection.setCellFactory(cellFactoryProducer.create());
 
+        ObservableUtils.addHandler(this::fireChangeEvent, Arrays.asList(
+                levelSelection.valueProperty(),
+                timedCheckBox.selectedProperty(),
+                specificDungeonCheckBox.selectedProperty(),
+                lootFunnelCheckBox.selectedProperty(),
+                armorTypeSelection.valueProperty(),
+                primaryStatSelection.valueProperty(),
+                trinketTypeSelection.valueProperty()
+        ));
+        weaponTypeSelection.getSelectionModel().getSelectedItems().addListener(
+                (ListChangeListener<? super WeaponType>) changedItem -> this.fireChangeEvent()
+        );
+
         loadLevelSelection();
         update();
+    }
+
+    public void addChangeHandler(Runnable handler) {
+        changeHandlers.add(handler);
+    }
+
+    public void removeChangeHandler(Runnable handler) {
+        changeHandlers.remove(handler);
+    }
+
+    private void fireChangeEvent(Observable o, Object oldValue, Object newValue) {
+        fireChangeEvent();
+    }
+
+    private void fireChangeEvent() {
+        for (var handler : changeHandlers) {
+            handler.run();
+        }
     }
 
     private void update() {
