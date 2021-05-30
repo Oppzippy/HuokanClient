@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
 
 public class OfferFormController implements Initializable {
     @FXML
+    public ComboBox<Integer> numberOfRunsSelection;
+    @FXML
     private CheckBox advertiserPaidCheckBox;
     @FXML
     private IntegerField priceAdjustmentField;
@@ -71,6 +73,7 @@ public class OfferFormController implements Initializable {
             throw new RuntimeException(e);
         }
         ObservableUtils.addObservableValueHandler(this::updateCommand, Arrays.asList(
+                numberOfRunsSelection.valueProperty(),
                 advertiserPaidCheckBox.selectedProperty(),
                 factionSelection.valueProperty(),
                 priceAdjustmentField.valueProperty(),
@@ -139,7 +142,8 @@ public class OfferFormController implements Initializable {
             default:
                 return null;
         }
-        builder.setNotes(notesField.getText())
+        builder.setNumRuns(numberOfRunsSelection.getValue())
+                .setNotes(notesField.getText())
                 .setPaid(advertiserPaidCheckBox.isSelected())
                 .setPriceAdjustment(new BigDecimal(priceAdjustmentField.getValue().orElse(0)))
                 .setFaction(factionSelection.getValue());
