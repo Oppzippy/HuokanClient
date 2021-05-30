@@ -1,6 +1,7 @@
 package org.huokan.client.controllers;
 
 import javafx.animation.Transition;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -81,6 +82,9 @@ public class OfferFormController implements Initializable {
                 notesField.textProperty()
         ));
         mythicPlusController.addChangeHandler(this::updateCommand);
+        numberOfRunsSelection.valueProperty().addListener(
+                (o, oldValue, newValue) -> mythicPlusController.setNumRuns(numberOfRunsSelection.getValue())
+        );
 
         copyButtonClickedTransition = new ButtonClickedTransition(
                 copyButton,

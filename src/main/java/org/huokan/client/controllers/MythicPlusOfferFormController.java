@@ -159,4 +159,8 @@ public class MythicPlusOfferFormController implements Initializable {
         }
         return specificDungeonPickerController.getSelectedDungeons();
     }
+
+    public void setNumRuns(int numRuns) {
+        specificDungeonPickerController.setNumRuns(numRuns);
+    }
 }

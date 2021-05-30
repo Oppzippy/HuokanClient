@@ -12,7 +12,7 @@
       fx:controller="org.huokan.client.controllers.OfferFormController">
     <GridPane HBox.hgrow="ALWAYS">
         <Label text="%numberOfRuns" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <ComboBox fx:id="numberOfRunsSelection" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <ComboBox fx:id="numberOfRunsSelection" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="1.7976931348623157E308">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <Integer fx:value="1"/>
