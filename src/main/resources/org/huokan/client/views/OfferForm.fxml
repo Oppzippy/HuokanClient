@@ -23,7 +23,6 @@
                     <Integer fx:value="6"/>
                     <Integer fx:value="7"/>
                     <Integer fx:value="8"/>
-                    <Integer fx:value="9"/>
                 </FXCollections>
             </items>
             <value>

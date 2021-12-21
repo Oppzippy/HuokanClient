@@ -26,7 +26,7 @@ public class MainController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         backgroundController.setImage(new Image("/org/huokan/client/images/background.jpg"));
-        setView(ViewFile.MAIN_MENU);
+        setView(ViewFile.LOGIN);
 
         preloadView(ViewFile.OFFER_FORM);
     }

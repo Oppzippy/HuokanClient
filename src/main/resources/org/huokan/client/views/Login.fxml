@@ -9,6 +9,6 @@
       stylesheets="/org/huokan/client/css/login.css"
       alignment="CENTER">
     <HBox alignment="CENTER" >
-        <Button styleClass="login-button" text="%logInWithDiscord" />
+        <Button styleClass="login-button" text="%logInWithDiscord" onAction="#openBrowser" />
     </HBox>
 </VBox>
